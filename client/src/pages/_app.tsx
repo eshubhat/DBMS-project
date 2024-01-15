@@ -8,8 +8,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <Appbar></Appbar>
-      <div style={{
-        zIndex:0,
+       <div style={{
+        zIndex:-1,
         position:"fixed",
         width:'100vw',
         height: '90vh'
@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           fill
           style={{objectFit:'cover'}}
           blurDataURL='/pharmabg.png'
-        />
+        /> 
 
         
       
