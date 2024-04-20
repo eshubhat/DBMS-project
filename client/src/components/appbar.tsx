@@ -30,15 +30,16 @@ export default function Appbar(){
                  */}
                 <main className={montserrat.className} >
                     
-                 <h3 style={{color: '#B6081D', fontSize: '23px',fontFamily:'sans-serif',paddingRight:'20px'}}> DBA Lab Course Project</h3>
+                 <h2 style={{color: '#B6081D', fontSize: '30px',fontFamily:'sans-serif',marginLeft:18, fontStretch:'ultra-expanded',transform: 'scale(1.2)'}}> DBA Lab Course Project</h2>
                  
-                 <p style={{color: '#000000', fontSize: '17px',fontFamily:'sans-serif',marginLeft:10,marginBottom: 20}}>Pharmacy management System</p>
+                 <h3 style={{color: '#000000', fontSize: '25px',fontFamily:'sans-serif',marginBottom: 20, marginRight:5}}>Pharmacy Management System</h3>
                  </main>
                     </Box>
             
                 <Box sx={{fontFamily:'monospace'}}>
-                    <Typography variant="h6" textAlign={'center'}>School of</Typography>
-                    <Typography variant="subtitle1" >Computer Science Department</Typography>
+                   
+                    <Typography variant="h6" paddingTop={3} textAlign={'center'}>School of</Typography>
+                    <Typography variant="subtitle1" >Computer Science Engineering</Typography>
                 </Box>
 
         </Box>

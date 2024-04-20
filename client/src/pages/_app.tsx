@@ -12,10 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
         zIndex:-1,
         position:"fixed",
         width:'100vw',
-        height: '90vh'
+        height: '100vh'
       }}>
         <Image
-          src="/pharmabg.png"
+          src="/bgImage.png"
           alt='Pharma logo'
           fill
           style={{objectFit:'cover'}}

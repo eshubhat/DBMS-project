@@ -7,14 +7,25 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Stack } from '@mui/material';
+import { Stack,TextField,Box } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import axios from 'axios';
+
+const WhiteBackgroundContainer = styled(Paper)(({ theme }) => ({
+  paperContainer: {
+    padding: '16px', // Adjust padding as needed
+    backgroundColor: 'white',
+    zIndex: 1000,
+    
+  },
+}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     zIndex:100,
+    textAlign:'center',
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -53,52 +64,102 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+type MetaDataItem = {
+  name: string;
+  nullable: boolean;
+  isJson: boolean;
+  byteSize: number;
+
+}
+
+type Rows = Array<Array<string[]>>;
+
 export default function Tabledisplay() {
+  const [metaDataresult,setmetaDataResult] = React.useState<MetaDataItem[]>();
+  const [rowsresult,setrowsResult] = React.useState<Rows>()
+  const [val,setValue] = React.useState('');
+
+  React.useEffect(()=>{
+    console.log(metaDataresult);
+  })
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    axios.post("http://localhost:3000/api/displayTable", {
+  headers: {},
+  data: {
+    index: event.target.value
+  }
+}).then((response) => {
+  setmetaDataResult(response.data?.metaData);
+  setrowsResult(response.data?.rows);
+  console.log(metaDataresult)
+  console.log(response?.data);
+});
+        
+    setValue(event.target.value as string)
+    
+
+};
+
   return (
-    <Stack direction={"column"}  zIndex={100} sx={{display:'flex',justifyContent:'right'}}>
-        <div>
-        <FormControl variant="filled" sx={{ m: 1,width:300 }}>
-        <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-filled-label"
-          id="demo-simple-select-filled"
-        >
-          <MenuItem value="">
+    <Stack direction={"row"}  zIndex={100} sx={{display:'flex',justifyContent:'left'}}>
+<Box width='250' minWidth={250} marginTop={3}>
+          <WhiteBackgroundContainer sx={{zIndex:100,borderWidth:'thick'}}>
+          <FormControl variant="standard" sx={{ m: 1,width:300 }}>
+          <TextField
+          label='Table'
+          select 
+          value={val}
+          onChange={handleChange}
+          >
+              <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-      </div>
+          <MenuItem value={10}>Customer</MenuItem>
+          <MenuItem value={20}>Customer_order</MenuItem>
+          <MenuItem value={30}>Customer_Insurance</MenuItem>
+          <MenuItem value={40}> Customer_Bill</MenuItem>
+          <MenuItem value={50}>Prescribed_Drugs</MenuItem>
+          <MenuItem value={60}>Ordered_Drugs</MenuItem>
+          <MenuItem value={70}>Employee_Details</MenuItem>
+          <MenuItem value={80}>Employee_Disposed_Medicine</MenuItem>
+          <MenuItem value={90}>Disposed_Medicine</MenuItem>
+          <MenuItem value={100}>Medicine_Details</MenuItem>
+            </TextField>
+            </FormControl>
+            </WhiteBackgroundContainer>
+        </Box>
 
-    <TableContainer  component={Paper} sx={{zIndex:100,maxWidth:1300,paddingLeft:3}}>
+
+        
+      <Box zIndex={100} marginTop={13}>
+    <TableContainer  component={Paper} sx={{zIndex:100,maxWidth:800,maxHeight:400,marginLeft:2}}>
       <Table sx={{ minWidth: 700,zIndex:3 }} aria-label="customized table">
         <TableHead sx={{zIndex:3}}>
-          <TableRow sx={{zIndex:3}}>
-            <StyledTableCell sx={{zIndex:100}}> Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell sx={{zIndex:100}} align="right">Calories</StyledTableCell>
-            <StyledTableCell sx={{zIndex:100}} align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell sx={{zIndex:100}} align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell sx={{zIndex:100}} align="right">Protein&nbsp;(g)</StyledTableCell>
+        <TableRow sx={{zIndex:3}}>
+            {metaDataresult?.map(e=>{
+              return (
+            <StyledTableCell key={e.name} align='center' sx={{zIndex:100}}>{e.name}</StyledTableCell>
+            )})}
           </TableRow>
         </TableHead>
         <TableBody sx={{zIndex:100}}>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name} sx={{zIndex:100}}>
-              <StyledTableCell sx={{zIndex:100 }} component="th" scope="row">
-                {row.name}
+          {rowsresult?.map((row,rowIndex) => (
+            
+            <StyledTableRow key={rowIndex} sx={{zIndex:100}}>
+              {row.map((value,columnIndex)=>(
+                <StyledTableCell sx={{zIndex:100 }} align='center' key={columnIndex} component="th" scope="row">
+                {value}
               </StyledTableCell>
-              <StyledTableCell sx={{zIndex:100}} align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell sx={{zIndex:100}} align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell sx={{zIndex:100}} align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell sx={{zIndex:100}} align="right">{row.protein}</StyledTableCell>
+              ))}
+              
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
     </Stack>
   );
 }

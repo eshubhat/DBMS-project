@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import Indexbutton from '@/components/styledButton'
 import { Box,Button } from '@mui/material'
 import { useRouter } from 'next/router'
+
 
 
 

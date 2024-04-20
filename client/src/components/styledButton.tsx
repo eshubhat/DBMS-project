@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { useRouter } from "next/router";
+import consoleImage from '../../public/console.png'
 
 const images = [
   {
@@ -87,7 +88,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
 export default function Indexbutton() {
     const router = useRouter();
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%',minheight:'100%',justifyContent: "space-between",marginTop:10 }} >
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%',minheight:'100%',justifyContent: "space-around",marginTop:10 }} >
         <ImageButton
           focusRipple
           key="DBMS queries"
@@ -96,8 +97,8 @@ export default function Indexbutton() {
             zIndex:3
           }}
           style={{
-            width: "45%",
-            height: '300px',
+            width: "25%",
+            height: '230px',
             backgroundSize: 'contain',
             marginLeft: 20,
             padding: 10,
@@ -123,6 +124,40 @@ export default function Indexbutton() {
           </Image>
         </ImageButton>
 
+        <ImageButton
+          focusRipple
+          key="Console"
+          sx={{
+            boxShadow:5,
+            zIndex:3
+          }}
+          style={{
+            width: "25%",
+            height: '230px',
+            backgroundSize: 'contain',
+            marginLeft: 20,
+            padding: 10,
+            display: "flex",justifyContent: "space-between"
+          }}
+        >
+          <ImageSrc style={{ backgroundImage: `url(${consoleImage})` ,}} />
+          <ImageBackdrop className="MuiImageBackdrop-root" />
+          <Image onClick={()=>{router.push('/console')}}>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              color="inherit"
+              sx={{
+                position: 'relative',
+                p: 4,
+                pt: 2,
+                pb: (theme) => 'calc(${theme.spacing(1)} + 6px)',
+              }}
+            >Console
+              <ImageMarked className="MuiImageMarked-root" />
+            </Typography>
+          </Image>
+        </ImageButton>
 
          <ImageButton
           focusRipple
@@ -131,16 +166,17 @@ export default function Indexbutton() {
             boxShadow: 5
           }}
           style={{
-            width: "45%",
-            height: '300px',
+            width: "25%",
+            height: '230px',
             backgroundSize: 'contain',
             marginRight: 20,
+            padding:10,
             display: "flex",justifyContent: "space-between"
           }}
         >
           <ImageSrc style={{ backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/005/147/541/non_2x/business-team-members-are-standing-with-confident-faces-business-icons-are-floating-above-their-heads-free-vector.jpg")'}} />
           <ImageBackdrop className="MuiImageBackdrop-root" />
-          <Image onClick={()=>{router.push('/aboutus')}}>
+          <Image onClick={()=>{router.push('/diagrams')}}>
             <Typography
               component="span"
               variant="subtitle1"

@@ -2,7 +2,7 @@ import { Box, Card, Stack,CardMedia,CardActions,Button,TextField } from "@mui/ma
 import Divider from '@mui/material/Divider';
 import {useRouter} from "next/router";
 
-export default function dbmsimplementation(){
+export default function Diagrams(){
     const router = useRouter();
     return (
         <Box boxShadow={0} 
@@ -18,12 +18,12 @@ export default function dbmsimplementation(){
         >
                
                 
-                <Button size="large" variant="contained" sx={{width:200,height:60}} onClick={()=>{router.push('/displaytable')}}>Table</Button>
+                <Button size="large" variant="contained" sx={{width:200,height:60}} onClick={()=>{router.push('/erdiagram')}}>Er-Diagram</Button>
                 
                
                 
               
-                <Button size="large" variant="contained" sx={{width:200,height:60}} onClick={()=>{router.push("/constructedqueries")}}>Query</Button>
+                <Button size="large" variant="contained" sx={{width:200,height:60}} onClick={()=>{router.push("/schemaDiagram")}}>Schema-Diagram</Button>
                 
                   </Stack>
                   </Stack>
